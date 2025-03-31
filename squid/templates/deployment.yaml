@@ -1,7 +1,8 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Release.Name }}-deployment"
+  name: squid-deployment
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -14,27 +15,11 @@ spec:
     spec:
       containers:
       - name: squid
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        resources:
-          requests:
-            memory: "2Gi"
-            cpu: "2"
+        image: ubuntu/squid:edge
         ports:
         - containerPort: 3128
           name: squid
           protocol: TCP
-        livenessProbe:
-          httpGet:
-            path: /healthz
-            port: 3128
-          initialDelaySeconds: 30
-          periodSeconds: 10
-        readinessProbe:
-          httpGet:
-            path: /readiness
-            port: 3128
-          initialDelaySeconds: 30
-          periodSeconds: 10
         volumeMounts:
         - name: squid-config-volume
           mountPath: /etc/squid/squid.conf
@@ -42,13 +27,12 @@ spec:
         - name: squid-data
           mountPath: /var/spool/squid
       volumes:
-      - name: squid-config-volume
-        configMap:
-          name: "{{ .Release.Name }}-config"
-          items:
-          - key: squid.conf
-            path: squid.conf
-      - name: squid-data
-        # emptyDir: {}
-        persistentVolumeClaim:
-          claimName: "squid-volume-claim"
+        - name: squid-config-volume
+          configMap:
+            name: squid-config
+            items:
+            - key: squid
+              path: squid.conf
+        - name: squid-data
+          persistentVolumeClaim:
+            claimName: squid-volume-claim
