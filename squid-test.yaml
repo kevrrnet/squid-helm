@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: squid-placeholder-deployment-internet-access
+  labels:
+    app: squid-placeholder-internet-access
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: squid-placeholder-internet-access
+  template:
+    metadata:
+      labels:
+        app: squid-placeholder-internet-access
+      annotations:
+        'cni.projectcalico.org/ipv4pools': '["squid"]'
+    spec:
+      terminationGracePeriodSeconds: 1
+      imagePullSecrets:
+      - name: nexus
+      containers:
+      - name: squid-placeholder
+        image: repos.cd.sac.int.threatmetrix.com:18450/nicolaka/netshoot
+        command: ["/bin/bash"]
+        args: ["-c", "sleep 300000;"]
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "250m"
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: squid-squid-sandbox-k8s.dev.sac.int.threatmetrix.com
+    external-dns.alpha.kubernetes.io/ttl: "3"
+  name: squid-headless
+spec:
+  clusterIP: None
+  ports:
+  - protocol: TCP
+    port: 3128
+    targetPort: 3128
+  selector:
+    app: squid-placeholder-internet-access
+  sessionAffinity: None
+  type: ClusterIP

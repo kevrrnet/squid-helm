@@ -1,0 +1,43 @@
+---
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  name: fast
+parameters:
+  adminId: admin
+  adminSecretName: ceph-admin-secret
+  adminSecretNamespace: default
+  fsType: ext4
+  imageFeatures: layering
+  imageFormat: "2"
+  monitors: 10.112.30.62:6789,10.112.30.12:6789,10.112.30.113:6789
+  pool: rbd
+  userId: rbd
+  userSecretName: ceph-user-secret
+  userSecretNamespace: default
+provisioner: kubernetes.io/rbd
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+
+---
+apiVersion: v1
+data:
+  key: QVFBSVZiSmgvSWR6RXhBQXV3MkJjVm1RYk1YcjFxMmJoakZad2c9PQ==
+kind: Secret
+metadata:
+  name: ceph-admin-secret
+  namespace: default
+type: kubernetes.io/rbd
+
+---
+apiVersion: v1
+data:
+  key: QVFCc3diSmhxU2RFQVJBQUZlaGFwMGljamkyQW1IYUkrM08yR1E9PQ==
+kind: Secret
+metadata:
+  name: ceph-user-secret
+  namespace: default
+type: kubernetes.io/rbd

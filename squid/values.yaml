@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: ubuntu/squid
+  repository: repos.cd.sac.int.threatmetrix.com:18450/ubuntu/squid 
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "edge"
@@ -25,13 +25,13 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
-persistence:
-  enabled: true
-  size: 500Mi
-  accessModes:
-    - ReadWriteOnce
-  annotations: {}
-  selector: {}  
+# persistence:
+#   enabled: true
+#   size: 500Mi
+#   accessModes:
+#     - ReadWriteOnce
+#   annotations: {}
+#   selector: {}  
 
 config:
   squid: |
