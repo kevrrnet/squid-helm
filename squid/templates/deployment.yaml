@@ -16,6 +16,10 @@ spec:
       containers:
       - name: squid
         image: ubuntu/squid:edge
+        resources:
+          requests:
+            memory: "2Gi"
+            cpu: "1000m"
         ports:
         - containerPort: 3128
           name: squid
@@ -26,6 +30,11 @@ spec:
           subPath: squid.conf
         - name: squid-data
           mountPath: /var/spool/squid
+        livenessProbe:
+          tcpSocket:
+            port: 3128
+          initialDelaySeconds: 40
+          timeoutSeconds: 10
       volumes:
         - name: squid-config-volume
           configMap:
