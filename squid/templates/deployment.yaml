@@ -23,6 +23,18 @@ spec:
         - containerPort: 3128
           name: squid
           protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 3128
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /readiness
+            port: 3128
+          initialDelaySeconds: 10
+          periodSeconds: 10
         volumeMounts:
         - name: squid-config-volume
           mountPath: /etc/squid/squid.conf
