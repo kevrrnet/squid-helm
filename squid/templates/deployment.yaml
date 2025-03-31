@@ -33,7 +33,7 @@ spec:
           httpGet:
             path: /readiness
             port: 3128
-          initialDelaySeconds: 10
+          initialDelaySeconds: 30
           periodSeconds: 10
         volumeMounts:
         - name: squid-config-volume
@@ -49,6 +49,6 @@ spec:
           - key: squid.conf
             path: squid.conf
       - name: squid-data
-        emptyDir: {}
-        # persistentVolumeClaim:
-        #   claimName: "{{ .Release.Name }}-pvc"
+        # emptyDir: {}
+        persistentVolumeClaim:
+          claimName: "squid-volume-claim"

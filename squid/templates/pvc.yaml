@@ -4,7 +4,7 @@ metadata:
   name: squid-volume-claim
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteMany
   storageClassName: fast
   resources:
     requests:
