@@ -21,7 +21,7 @@ spec:
             memory: "{{ .Values.resources.requests.memory }}"
             cpu: "{{ .Values.resources.requests.cpu }}"
         ports:
-        - containerPort: 3128
+        - containerPort: {{ .Values.container.port }}
           name: {{ .Values.container.name }}
           protocol: TCP
         volumeMounts:

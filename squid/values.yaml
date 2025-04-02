@@ -6,6 +6,7 @@ replicaCount: 2
 
 container:
   name: squid
+  port: 3128
 
 appLabels:
   app: squid
