@@ -4,9 +4,9 @@ kind: Service
 metadata:
   name: squid-service
   labels:
-    app: squid
+    app: {{ .Values.appLabels.app }}
 spec:
   ports:
   - port: 3128
   selector:
-    app: squid
+    app: {{ .Values.appLabels.app }}
