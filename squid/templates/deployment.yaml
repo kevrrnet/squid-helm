@@ -12,6 +12,7 @@ spec:
     metadata:
       labels:
         app: {{ .Values.appLabels.app }}
+      annotations: {{ .Values.podAnnotations | nindent 8 }}
     spec:
       containers:
       - name: {{ .Values.container.name }}
