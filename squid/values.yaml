@@ -4,10 +4,21 @@
 
 replicaCount: 2
 
+container:
+  name: squid
+
+appLabels:
+  app: squid
+
 image:
   repository: ubuntu/squid
   tag: edge
   pullPolicy: IfNotPresent
+
+resources:
+  requests:
+    memory: "2Gi"
+    cpu: "1000m"
 
 squidConfig:
   squid: |

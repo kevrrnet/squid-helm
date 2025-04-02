@@ -7,22 +7,22 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: squid
+      app: {{ .Values.appLabels.app }}
   template:
     metadata:
       labels:
-        app: squid
+        app: {{ .Values.appLabels.app }}
     spec:
       containers:
-      - name: squid
+      - name: {{ .Values.container.name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "1000m"
+            memory: "{{ .Values.resources.requests.memory }}"
+            cpu: "{{ .Values.resources.requests.cpu }}"
         ports:
         - containerPort: 3128
-          name: squid
+          name: {{ .Values.container.name }}
           protocol: TCP
         volumeMounts:
         - name: squid-config-volume
