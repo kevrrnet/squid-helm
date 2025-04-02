@@ -44,4 +44,5 @@ spec:
               path: squid.conf
         - name: squid-data
           emptyDir:
-            sizeLimit: 1000Mi
+            sizeLimit: {{ .Values.volumes.emptyDir.sizeLimit }}
+
