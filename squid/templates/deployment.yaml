@@ -43,5 +43,5 @@ spec:
             - key: squid
               path: squid.conf
         - name: squid-data
-          persistentVolumeClaim:
-            claimName: squid-volume-claim
+          emptyDir:
+            sizeLimit: 1000Mi
