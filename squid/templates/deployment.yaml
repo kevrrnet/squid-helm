@@ -30,11 +30,11 @@ spec:
           subPath: squid.conf
         - name: squid-data
           mountPath: /var/spool/squid
-        livenessProbe:
+        livenessProbe:        
           tcpSocket:
-            port: 3128
-          initialDelaySeconds: 40
-          timeoutSeconds: 10
+            port: {{ .Values.livenessProbe.tcpSocket.port }}
+          initialDelaySeconds: {{ .Values.livenessProbe.initialDelaySeconds }}
+          timeoutSeconds: {{ .Values.livenessProbe.timeoutSeconds }}
       volumes:
         - name: squid-config-volume
           configMap:

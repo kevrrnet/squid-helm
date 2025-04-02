@@ -16,6 +16,12 @@ image:
   tag: edge
   pullPolicy: IfNotPresent
 
+livenessProbe:
+  tcpSocket:
+    port: 3128
+  initialDelaySeconds: 40
+  timeoutSeconds: 10
+
 resources:
   requests:
     memory: "2Gi"
