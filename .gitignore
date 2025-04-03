@@ -1,0 +1,24 @@
+# Ignore Helm release files
+*.tgz
+
+# Ignore Helm templates
+templates/*.yaml
+
+# Ignore Helm values files
+values.yaml
+values-*.yaml
+
+# Ignore Helm charts
+charts/
+
+# Ignore Helm lock files
+Chart.lock
+requirements.lock
+
+# Ignore Helm test output
+test-output/
+
+# Ignore Helm temporary files
+.tmp/
+
+.test/
