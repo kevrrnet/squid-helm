@@ -6,11 +6,9 @@ metadata:
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}
   labels:
-    app: {{ .Values.appLabels.app }}
     app.kubernetes.io/instance: {{ .Values.appLabels.app }}
 spec:
   ports:
   - port: 3128
   selector:
-    app: {{ .Values.appLabels.app }}
     app.kubernetes.io/instance: {{ .Values.appLabels.app }}
