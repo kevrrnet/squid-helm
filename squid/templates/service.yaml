@@ -8,6 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: {{ .Values.appLabels.app }}
 spec:
+  clusterIP: None
   ports:
   - port: 3128
   selector:
