@@ -2,16 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: squid-deployment
+  name: {{ .Release.Name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app: {{ .Values.appLabels.app }}
+      app.kubernetes.io/instance: {{ .Values.appLabels.app }}
   template:
     metadata:
       labels:
         app: {{ .Values.appLabels.app }}
+        app.kubernetes.io/instance: {{ .Values.appLabels.app }}
       annotations:
         {{- toYaml .Values.podAnnotations | nindent 8 }}
     spec:

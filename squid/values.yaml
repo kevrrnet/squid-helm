@@ -10,6 +10,13 @@ container:
 
 appLabels:
   app: squid
+ 
+service:
+  annotations: {
+    external-dns.alpha.kubernetes.io/hostname: squid-dev-qa-k8s.dev.sac.int.threatmetrix.com,
+    external-dns.alpha.kubernetes.io/ttl: "10",
+    threatmetrix.com/publish-dns: "true"
+  }
 
 image:
   repository:  repos.cd.sac.int.threatmetrix.com:18450/ubuntu/squid

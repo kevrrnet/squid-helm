@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: squid-dev-qa-k8s.dev.sac.int.threatmetrix.com
+    external-dns.alpha.kubernetes.io/ttl: "10"
+    threatmetrix.com/publish-dns: "true"
+  name: squid-dev-headless
+  namespace: squid-dev
+spec:
+  clusterIP: None
+  internalTrafficPolicy: Cluster
+  ports:
+  - name: squid
+    port: 3128
+    protocol: TCP
+    targetPort: squid
+  selector:
+    app.kubernetes.io/instance: squid
+  type: ClusterIP
