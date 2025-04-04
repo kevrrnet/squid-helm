@@ -19,7 +19,7 @@ service:
   }
 
 image:
-  repository:  repos.cd.sac.int.threatmetrix.com:18450/ubuntu/squid
+  repository: repos.cd.sac.int.threatmetrix.com:18450/ubuntu/squid
   tag: edge
   pullPolicy: IfNotPresent
 
